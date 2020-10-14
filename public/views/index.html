@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controller</title>
+
+    <script src="https://kit.fontawesome.com/1725c8725c.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="connector-holder">
+            <p class="status">IP: <span id="ip">localhost</span></p>
+            <div class="input-holder">
+                <div class="address-holder">
+                    <label class="address-label" for="address">MQTT IP:</label>
+                    <input class="address" type="text" name="address" id="address">
+                </div>
+                <button class="connect" onclick="connectOnClick()">Connect</button>
+            </div>
+        </div>
+        <div class="controls">
+            <div class="control-divider divider">
+                <div class="controller-holder">
+                    <div class="icon-holder">
+                        <img src="./robotics.png" alt="" class="icon-big">
+                    </div>
+                    <div class="button up">
+                        <button class="control" id="robotUp">
+                            <h1 class="letter-icon">W</h1>
+                        </button>
+                    </div>
+                    <div class="button right">
+                        <button class="control" id="robotRight">
+                            <h1 class="letter-icon">D</h1>
+                        </button>
+                    </div>
+                    <div class="button down">
+                        <button class="control" id="robotDown">
+                            <h1 class="letter-icon">S</h1>
+                        </button>
+                    </div>
+                    <div class="button left">
+                        <button class="control" id="robotLeft">
+                            <h1 class="letter-icon">A</h1>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="camera-divider divider">
+                <div class="controller-holder">
+                    <div class="icon-holder">
+                        <img src="./cctv.png" alt="" class="icon-big">
+                    </div>
+                    <div class="button up">
+                        <button class="control" id="cameraUp">
+                            <img src="./up-arrow.png" alt="" class="icon">
+                        </button>
+                    </div>
+                    <div class="button right">
+                        <button class="control" id="cameraRight">
+                            <img src="./right-arrow.png" alt="" class="icon">
+                        </button>
+                    </div>
+                    <div class="button down">
+                        <button class="control" id="cameraDown">
+                            <img src="./down-arrow.png" alt="" class="icon">
+                        </button>
+                    </div>
+                    <div class="button left">
+                        <button class="control" id="cameraLeft">
+                            <img src="./left-arrow.png" alt="" class="icon">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.4/socket.io.js "></script>
+    <script src="./script.js"></script>
+
+</body>
+
+</html>

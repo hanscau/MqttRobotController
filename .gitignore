@@ -1,0 +1,4 @@
+/.eshintrc
+/.jshintrc
+/node_modules
+/tsconfig.json

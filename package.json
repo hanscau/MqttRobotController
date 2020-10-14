@@ -1,0 +1,24 @@
+{
+  "name": "robot",
+  "version": "1.0.0",
+  "description": "Virtual JS robot",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js",
+    "start": "nodemon -e js,ejs"
+  },
+  "keywords": [
+    "robot"
+  ],
+  "author": "Hans Delano",
+  "license": "ISC",
+  "dependencies": {
+    "connect-livereload": "^0.6.1",
+    "ejs": "^3.1.5",
+    "expess": "0.0.1-security",
+    "express": "^4.17.1",
+    "livereload": "^0.9.1",
+    "mqtt": "^4.2.1",
+    "socket.io": "^2.3.0"
+  }
+}
