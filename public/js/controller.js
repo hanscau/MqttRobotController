@@ -3,16 +3,11 @@ var socket = io("http://localhost:4000");
 var robotChannel = "/robot/movement/control";
 var cameraChannel = "/robot/camera/control";
 
-var connectOnClick = () => {
-  var address = document.getElementById("address").value;
-  socket.emit("/connect", address);
-};
+var messageIntervalDelay = 5;
+var speedUp = 1.1;
 
-var onConnected = (payload) => {
-  document.getElementById("ip").innerHTML = payload;
-};
-
-socket.on("/connected", onConnected);
+var maxLinearVelocity = 1;
+var maxAngularVelocity = 1;
 
 var robotPayload = {
   linearVel: {
@@ -33,8 +28,7 @@ var cameraPayload = {
   direction: "up",
 };
 
-var startingDelay = 5;
-var speedUp = 1;
+
 
 /**
  * Robot movement handler
@@ -42,14 +36,14 @@ var speedUp = 1;
 
 var moveRobotForward = () => {
   console.log("robot forward");
-  robotPayload.linearVel.x = 1;
+  robotPayload.linearVel.x = maxLinearVelocity;
   robotPayload.angularVel.z = 0;
   socket.emit(robotChannel, robotPayload);
 };
 
 var moveRobotBackward = () => {
   console.log("robot backward");
-  robotPayload.linearVel.x = -1;
+  robotPayload.linearVel.x = -maxLinearVelocity;
   robotPayload.angularVel.z = 0;
   socket.emit(robotChannel, robotPayload);
 };
@@ -57,14 +51,14 @@ var moveRobotBackward = () => {
 var turnRobotRight = () => {
   console.log("robot right");
   robotPayload.linearVel.x = 0;
-  robotPayload.angularVel.z = 1;
+  robotPayload.angularVel.z = maxAngularVelocity;
   socket.emit(robotChannel, robotPayload);
 };
 
 var turnRobotLeft = () => {
   console.log("robot left");
   robotPayload.linearVel.x = 0;
-  robotPayload.angularVel.z = -1;
+  robotPayload.angularVel.z = -maxAngularVelocity;
   socket.emit(robotChannel, robotPayload);
 };
 
@@ -95,6 +89,21 @@ var turnCameraLeft = () => {
   cameraPayload.direction = "left";
   socket.emit(cameraChannel, cameraPayload);
 };
+
+/**
+ * On MQTT Connected handler
+ */
+
+var connectOnClick = () => {
+  var address = document.getElementById("address").value;
+  socket.emit("/connect", address);
+};
+
+var onConnected = (payload) => {
+  document.getElementById("ip").innerHTML = payload;
+};
+
+socket.on("/connected", onConnected);
 
 /**
  * Key handler to robot movement
@@ -142,7 +151,7 @@ setInterval(() => {
   if (keydown) {
     keydownHandler(key);
   }
-}, startingDelay);
+}, messageIntervalDelay);
 
 /**
  * Button hold handler
@@ -170,52 +179,57 @@ function buttonHold(btn, action, start, speedup) {
   };
 }
 
+/**
+ * Button binding
+ */
+
 buttonHold(
   document.getElementById("robotUp"),
   moveRobotForward,
-  startingDelay,
+  messageIntervalDelay,
   speedUp
 );
 buttonHold(
   document.getElementById("robotDown"),
   moveRobotBackward,
-  startingDelay,
+  messageIntervalDelay,
   speedUp
 );
 buttonHold(
   document.getElementById("robotLeft"),
   turnRobotLeft,
-  startingDelay,
+  messageIntervalDelay,
   speedUp
 );
 buttonHold(
   document.getElementById("robotRight"),
   turnRobotRight,
-  startingDelay,
+  messageIntervalDelay,
   speedUp
 );
 
 buttonHold(
   document.getElementById("cameraUp"),
   turnCameraUp,
-  startingDelay,
+  messageIntervalDelay,
   speedUp
 );
 buttonHold(
   document.getElementById("cameraDown"),
   turnCameraDown,
-  startingDelay,
+  messageIntervalDelay,
   speedUp
 );
 buttonHold(
   document.getElementById("cameraLeft"),
   turnCameraLeft,
-  startingDelay,
+  messageIntervalDelay,
   speedUp
 );
 buttonHold(
   document.getElementById("cameraRight"),
   turnCameraRight,
-  startingDelay,
+  messageIntervalDelay,
   speedUp
 );
+
