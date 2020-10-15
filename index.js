@@ -16,26 +16,25 @@ io.on("connection", (socket) => {
   console.log("[Info] user connected");
 
   socket.on("/robot/movement/control", (payload) => {
-    console.log("Update robot control");
+    console.log("[Controller] Update robot control", JSON.stringify(payload, null, 2));
     publish("/robot/movement/control", JSON.stringify(payload));
   });
 
   socket.on("/robot/camera/control", (payload) => {
-    console.log("Update camera control");
+    console.log("[Controller] Update camera control", JSON.stringify(payload, null, 2));
     publish("/robot/camera/control", JSON.stringify(payload));
   });
 
   socket.on("/connect", (address) => {
     broker = address;
-    console.log("Connecting to mqtt", broker);
+    console.log("[Info] Connecting to mqtt", broker, "...");
     client = mqtt.connect(`mqtt://${broker}`);
 
     client.on("connect", () => {
-      console.log("Connect to mqtt");
+      console.log("[Info] Connected to mqtt");
       client.subscribe("/robot/task");
       client.subscribe("/robot/taskreq/status");
 
-      console.log("[Info] connected to root");
 
       publish = (topic, payload) => {
         client.publish(topic, payload);
